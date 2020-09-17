@@ -1,4 +1,4 @@
-# 100Days
+# 100DaysOfCode
 
 Home base repo for my 100DaysOfCode challenge
 
