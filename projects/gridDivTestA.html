@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Canvas from Scratch - Hello World</title>
+	<style>
+		body{
+			background: white;
+		}
+		#grid{
+			width: 480px;
+			height: 480px;
+			display: flex;
+			flex-wrap: wrap;
+		}
+		#grid div{
+			width: 24px;
+			height: 24px;
+			background-color: grey;
+			text-align: center;
+			font: 30px Arial, sans-serif;
+		}
+		#grid .highlighted{
+			background-color: red;
+		}
+	</style>
+</head>
+<body>
+	<!-- <canvas id="myCanvas" width="600" height="600"></canvas> -->
+	<h3 id='message'>TEXT</h3>
+	<div id='grid'></div>
+	<!-- <script src="src/gridLines.js"></script> -->
+	<script src="src/grid.js"></script>
+	<script src="src/gridDivTestA.js"></script>
+</body>
+</html>
