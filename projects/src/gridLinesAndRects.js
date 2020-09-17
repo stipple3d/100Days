@@ -7,7 +7,7 @@ let gridLines;
 let rectA;
 function Setup(){
 
-	//gridLines = new GridLines();
+	gridLines = new GridLines();
 
 	rectA = new Rect(100, 100, 10, 10, 'grey', 'white', 1, 25);
 
@@ -17,10 +17,10 @@ function Setup(){
 
 	  },
 	  render: function() {
-	  	
-	  	//gridLines.draw();
-
 	  	rectA.draw();
+	  	gridLines.draw();
+
+	  	
 	  }
 	});
 

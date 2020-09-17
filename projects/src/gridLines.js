@@ -1,5 +1,5 @@
 class GridLines{
-	constructor(worldGridX = 0, worldGridY = 0, hSpacing = 100, vSpacing = 100, lineColor = 'grey', lineThickness = 0.05){
+	constructor(worldGridX = 0, worldGridY = 0, hSpacing = 100, vSpacing = 100, lineColor = 'red', lineThickness = 0.05){
 		this.x = worldGridX;
 		this.y = worldGridY;
 		this.hSpacing = hSpacing;

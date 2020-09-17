@@ -2,16 +2,18 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Canvas from Scratch - Hello World</title>
+	<title>100 Days - Sparlkler Drawing Test</title>
 	<style>
 		body{
 			background: white;
+			color: black;
 		}
 		#grid{
 			width: 480px;
 			height: 480px;
 			display: flex;
 			flex-wrap: wrap;
+			background:black;
 		}
 		#grid div{
 			width: 24px;
@@ -21,11 +23,15 @@
 			font: 30px Arial, sans-serif;
 		}
 		#grid .highlighted{
-			background-color: red;
+			background-color: yellow;
 		}
 	</style>
 </head>
 <body>
+	<div>
+		<h1>Sparkler Drawing (test)</h1>
+		<a href='../index.html'>BackToMenu</a>
+	</div>
 	<!-- <canvas id="myCanvas" width="600" height="600"></canvas> -->
 	<h3 id='message'>TEXT</h3>
 	<div id='grid'></div>
@@ -33,4 +39,7 @@
 	<script src="src/grid.js"></script>
 	<script src="src/gridDivTestA.js"></script>
 </body>
+<footer>
+	<a href='../index.html'><img src="../images/logoSmall.png" /></a>
+</footer>
 </html>
