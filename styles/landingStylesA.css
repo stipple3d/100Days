@@ -1,0 +1,49 @@
+body{
+	background-color: #222629;
+	font: 1em impact, sans-serif;
+	text-align: center;
+	color: #dce0e3;
+}
+h1{
+	font:2em courier, sans-serif;
+}
+h3{
+	font: 1.2em courier, sans-serif;
+}
+.highlightColorBlocks{
+	width: 100px;
+	height: 100px;
+	font-size: 4em;
+	margin: 20px;
+}
+#hColor1{
+	background-color: #8ac80b;
+	color: #608d24;
+}
+#hColor2{
+	background-color: #dce0e3;
+	color: #222629;
+}
+#hColor3{
+	background-color: #608d24;
+	color: #8ac80b;
+}
+#hColor4{
+	background-color: #db933f;
+	color: white;
+}
+#hBorder1{
+	border: 1px solid #8ac80b;
+	color: #608d24;
+}
+#hBorder2{
+	border: 1px solid #dce0e3;
+}
+#hBorder3{
+	border: 1px solid #608d24;
+	color: #8ac80b;
+}
+#hBorder4{
+	border: 1px solid #db933f;
+	color: white;
+}

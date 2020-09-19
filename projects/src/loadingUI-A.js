@@ -37,12 +37,30 @@ function Setup(){
 	//create loader instances and push them to the loaders array
 
 	//BarLoader
-	var bLoader = new BarLoader(startingValue, targetValue, 200, 10, 0, 100, 100);
+	var bLoader = new BarLoader(startingValue, targetValue, 200, 10, 0, 70, 180);
 	bLoader.setBgLine(1,'white');
-	bLoader.setBgColor('white');
+	bLoader.setBgColor('#666');
 	bLoader.setProgressLine(1, 'black');
 	bLoader.setProgressColor('#336699')
 	loaders.push(bLoader);
+
+	var bLoader2 = new BarLoader(startingValue, targetValue, 80, 10, 0, 70, 250);
+	bLoader2.setBgLine(1,'white');
+	//bLoader2.setBgColor('#666');
+	bLoader2.setProgressLine(1, 'black');
+	bLoader2.setProgressColor('red')
+	loaders.push(bLoader2);
+
+	//CircleLoader
+	var cLoader = new CircleLoader(startingValue, targetValue, 30, 100, 100);
+	cLoader.setBgLine(2, '#666');
+	cLoader.setProgressLineColor(4, 'red');
+	loaders.push(cLoader);
+
+	var cLoader2 = new CircleLoader(startingValue, targetValue, 10, 240, 100);
+	//cLoader.setBgLine(20, '#666');
+	cLoader2.setProgressLineColor(20, '#336699');
+	loaders.push(cLoader2);
 
 	//init data in prepping state
 
@@ -67,24 +85,13 @@ function Setup(){
 	  	}
 
 	  },
-	  render: function() {
-
-	  	//draw debug rectangle where the bar loader should render
-	  	
-
+	  render: function() {	  	
 	  	//if there are loaders to draw, draw them
 	  	if(loaders.length > 0){
 	  		for(var lo = 0; lo < loaders.length; lo++){
 	  			loaders[lo].drawLoader();
 	  		}
 	  	}
-	  	/*context.save();
-	  	context.beginPath();
-		context.strokeStyle = 'white';
-		context.strokeRect(100, 100, 200, 10);
-		context.restore();*/
-
-
 	  }
 	});
 
