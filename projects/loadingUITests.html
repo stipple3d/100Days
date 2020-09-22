@@ -3,29 +3,20 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Stipple3D - 100 Days - Loading UI Tests</title>
-	<style>
-		body{
-			background: white;
-		}
-		canvas{
-			border: 1px solid white;
-			background-color: black;
-		}
-	</style>
 	<script src="https://cdn.jsdelivr.net/npm/kontra@7.1.2/kontra.js"></script>
+	<link rel="stylesheet" href="../styles/main.css" />
 </head>
 <body>
-	<div>
-		<h1>Loading UI (test)</h1>
+	<div id="header">
+		<a id="logo" href='../index.html'><img src="../images/newLogoTemp1.png" /></a>
+		<h3>100 Days Of Code </h3>
+		<h1>Loading Progress Displays</h1>
 		<a href='../index.html'>BackToMenu</a>
 	</div>
-	<canvas id="myCanvas" width="600" height="600"></canvas>
+	<canvas id="myCanvas" width="600" height="400"></canvas>
 	<script src="src/loader.js"></script>
 	<script src="src/barLoaderA.js"></script>
 	<script src="src/circleLoaderA.js"></script>
 	<script src="src/loadingUI-A.js"></script>
 </body>
-<footer>
-	<a href='../index.html'><img src="../images/logoSmall.png" /></a>
-</footer>
 </html>

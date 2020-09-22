@@ -58,7 +58,7 @@ class BarLoader extends Loader{
 		context.save();
 		context.beginPath();
 		context.font = "20px sans-serif";
-		context.fillStyle = '#333';
+		context.fillStyle = '#999';
 		context.fillText(Math.floor(this.percComplete * 100) + ' %', this.x + this.maxWidth + 15, this.y + 12);
 		context.restore();
 		//context.fillText("pos: " + this.x + ', ' + this.y, 200, 80);

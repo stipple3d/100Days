@@ -30,7 +30,7 @@ class PointToPointMover{
 	}
 	draw = function(){
 		context.beginPath();
-		context.fillStyle = 'grey';
+		context.fillStyle = '#8ac80b';
 		context.arc(this.x, this.y, 10, 0, 2 * Math.PI);
 		context.fill();
 		context.closePath();

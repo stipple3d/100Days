@@ -4,16 +4,13 @@
 	<meta charset="UTF-8">
 	<title>100 Days - Sparlkler Drawing Test</title>
 	<style>
-		body{
-			background: white;
-			color: black;
-		}
 		#grid{
 			width: 480px;
 			height: 480px;
 			display: flex;
 			flex-wrap: wrap;
-			background:black;
+			background: #2a2f38;
+			border: 1px solid #555;
 		}
 		#grid div{
 			width: 24px;
@@ -23,13 +20,19 @@
 			font: 30px Arial, sans-serif;
 		}
 		#grid .highlighted{
-			background-color: yellow;
+			background-color: #8ac80b;
+		}
+		#message{
+			text-align: left;
 		}
 	</style>
+	<link rel="stylesheet" href="../styles/main.css" />
 </head>
 <body>
-	<div>
-		<h1>Sparkler Drawing (test)</h1>
+	<div id="header">
+		<a id="logo" href='../index.html'><img src="../images/newLogoTemp1.png" /></a>
+		<h3>100 Days Of Code </h3>
+		<h1>Sparkler Drawing w/ Divs</h1>
 		<a href='../index.html'>BackToMenu</a>
 	</div>
 	<!-- <canvas id="myCanvas" width="600" height="600"></canvas> -->
@@ -39,7 +42,4 @@
 	<script src="src/grid.js"></script>
 	<script src="src/gridDivTestA.js"></script>
 </body>
-<footer>
-	<a href='../index.html'><img src="../images/logoSmall.png" /></a>
-</footer>
 </html>

@@ -9,7 +9,7 @@ function Setup(){
 
 	gridLines = new GridLines();
 
-	rectA = new Rect(100, 100, 10, 10, 'grey', 'white', 1, 25);
+	rectA = new Rect(80, 80, 10, 10, '#8ac80b', '#555', 1, 25);
 
 	gameLoop = GameLoop({
 	  update: function(dt) {

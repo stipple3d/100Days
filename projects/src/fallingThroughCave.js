@@ -256,7 +256,7 @@ function Setup(){
 			rowY = row * gridUnit - playerDepthIntoCave + vAdjustment;
 			context.save();
 			context.beginPath();
-			context.fillStyle = 'grey';
+			context.fillStyle = '#555';
 			//draw left element
 			context.fillRect(0,rowY, caveRows[row].l * gridUnit, gridUnit);
 			//draw right element
@@ -270,7 +270,7 @@ function Setup(){
 	  	//(the cave moves opposite the intended players "falling")
 	  	context.save();
 		context.beginPath();
-		context.fillStyle = 'green';
+		context.fillStyle = '#8ac80b';
 		//draw player circle
 		context.arc(canvas.width /2, pVertScreenUnitOffset * gridUnit, gridUnit /2, 0, Math.PI * 2);
 		context.fill();

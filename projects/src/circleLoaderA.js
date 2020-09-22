@@ -51,7 +51,7 @@ class CircleLoader extends Loader{
 		context.save();
 		context.beginPath();
 		context.font = "20px sans-serif";
-		context.fillStyle = '#333';
+		context.fillStyle = '#999';
 		context.fillText(Math.floor(this.percComplete * 100) + ' %', this.x + this.radius + 15, this.y + 12);
 		context.restore();
 

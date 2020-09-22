@@ -1,0 +1,37 @@
+body{
+	/*background-color: #222629;*/
+	background-color: #2a2f38;
+	
+	font: 1em courier, sans-serif;
+	text-align: center;
+	color: #dce0e3;
+}
+h1{
+	font:2em courier, sans-serif;
+}
+h3{
+	font: 1.2em courier, sans-serif;
+}
+#logo{
+	text-align: left;
+}
+li{
+	list-style-type: none;
+	padding: 1.5em;
+}
+a{
+	font:2em sans-serif;
+	color: #8ac80b;
+}
+a:link, a:visited{
+	color: #555;
+	text-decoration: none;
+}
+a:hover, a:active{
+	color: #8ac80b;
+}
+canvas{
+	background-color: #2a2f38;
+	border: 1px solid #555;
+	margin: 10px;
+}
