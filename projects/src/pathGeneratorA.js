@@ -207,7 +207,7 @@ function Setup(){
 	  					//wall
 	  					context.save();
 						context.beginPath();
-						context.fillStyle = '#333';
+						context.fillStyle = '#444';
 						context.fillRect(col * mapTileWidth +1, row * mapTileHeight +1, mapTileWidth -2, mapTileHeight -2);
 						context.restore();
 	  				}
@@ -281,7 +281,7 @@ function Setup(){
 	  					//wall
 	  					context.save();
 						context.beginPath();
-						context.fillStyle = '#333';
+						context.fillStyle = '#444';
 						context.fillRect(col * mapTileWidth +1, row * mapTileHeight +1, mapTileWidth -2, mapTileHeight -2);
 						context.restore();
 	  				}
@@ -352,7 +352,7 @@ function Setup(){
 	  					//wall
 	  					context.save();
 						context.beginPath();
-						context.fillStyle = '#333';
+						context.fillStyle = '#444';
 						context.fillRect(col * mapTileWidth +1, row * mapTileHeight +1, mapTileWidth -2, mapTileHeight -2);
 						context.restore();
 	  				}
