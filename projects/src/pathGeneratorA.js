@@ -7,6 +7,12 @@ const mapTilesHigh = 10;
 const minPathTiles = 6;
 const maxPathTiles = 20;
 
+//1 = an extra value in the current direction is added to the options for each
+//		option (1-4).
+//2+ will add multiple of that number and make it MUCH more likely to go 
+//		straight vs. turning
+const goStraightFactor = 1;
+
 //**** global vars
 let gameLoop;
 let state;
@@ -23,6 +29,8 @@ let pathComplete;
 let movesComplete;
 
 let completeWaitRemaining;
+
+
 
 function InitPath(){
 
@@ -435,6 +443,8 @@ Setup();
 
 function GetNewValidDirection(currentDir = ''){
 
+	//TODO: add a check to always have one tile in between all paths (except cornders?)
+
 	//array to store the final values to choose from
 	var possibleDirs = [];
 
@@ -460,18 +470,19 @@ function GetNewValidDirection(currentDir = ''){
 		return 'noDirs';
 	}
 	else{
-		//FIXME: this crashes the browser right now. memory issue?
-
 		//add in an equal number of the current direction 
 		//(to make it more likly to continue on current path)
 		//ONLY, if the current direction is in the options array
+
 		if(currentDir != '' && possibleDirs.includes(currentDir)){
-			//console.log('adding extra currentDirs: ' + possibleDirs.length);
-			// for(var i = 0; i < possibleDirs.length; i++){
-			// 	possibleDirs.push(currentDir);
-			// }
+
+			//store number of extras to add (otherwise it infinite loops)
+			var numToAdd = possibleDirs.length * goStraightFactor;
+
+			for(var i = 0; i < numToAdd; i++){
+				possibleDirs.push(currentDir);
+			}
 		}
-		//console.log(possibleDirs);
 
 		return possibleDirs[Math.floor(Math.random() * possibleDirs.length)];
 	}
