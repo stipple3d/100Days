@@ -13,7 +13,7 @@ function Setup(){
 
 	gameLoop = GameLoop({
 	  update: function(dt) {
-
+	  
 
 	  },
 	  render: function() {
