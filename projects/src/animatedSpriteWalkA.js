@@ -46,6 +46,13 @@ function Setup(){
 
 	  	//arrowHandler.logDirections();
 
+	  	context.save();
+		context.beginPath();
+		context.font = "20px sans-serif";
+		context.fillStyle = '#999';
+		context.fillText('*** ARROWS TO MOVE ***', 20, canvas.height -30);
+		context.restore();
+
 	  }
 	});
 
