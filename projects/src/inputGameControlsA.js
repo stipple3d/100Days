@@ -99,7 +99,7 @@ function Setup(){
 	  },
 	  render: function() {
 
-	  	context.save()
+	  	context.save();
 
 	  	//player object
 	  	context.beginPath();
@@ -165,6 +165,8 @@ document.addEventListener("DOMContentLoaded", function(){
 	canvas.onmousemove = HandleMouseMove;
 	canvas.onmousedown = HandleCanvasMouseClick;
 	document.onmouseup = HandleMouseUp;
+
+	
 
 	//run setup
     Setup();
