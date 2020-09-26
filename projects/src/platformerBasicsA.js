@@ -1,7 +1,7 @@
-let { init, GameLoop } = kontra;
-let { canvas, context } = init();
+let canvas, context;
 
-let gameLoop;
+let s3dLoop;
+
 //canvas 600 x 400
 const data = {
 	playerStartX: 200, playerStartY: 50,
@@ -31,6 +31,16 @@ let blocks;
 
 let player;
 
+function Setup(){
+
+	//run function to init level (run at start and after a death)
+	InitLevel();
+
+	s3dLoop = new s3dGameLoop(60, GameRender, GameUpdate);
+	s3dLoop.startLoop();
+
+}
+
 function InitLevel(){
 	//init the l/r pressed bools to false
 	leftPressed = rightPressed = false;
@@ -55,20 +65,16 @@ function InitLevel(){
 	}
 }
 
-function Setup(){
+function GameUpdate(_deltaTime){
+	player.update(leftPressed, rightPressed);
+}
 
-	//run function to init level (run at start and after a death)
-	InitLevel();
+function GameRender(){
+	context.save();
 
-	gameLoop = GameLoop({
-	  update: function(dt) {
-	  
-	  	player.update(leftPressed, rightPressed);
-
-	  },
-	  render: function() {
-
-	  	context.save();
+		//clear BG
+		//TODO: have this be a gameSetting?
+		context.clearRect(0, 0, canvas.width, canvas.height);
 
 	  	//draw blocks
 	  	if(data.drawWithHighlight){
@@ -95,14 +101,6 @@ function Setup(){
 	  	//draw player
 	  	player.draw();
 
-	  	//context.beginPath();
-	  	//context.strokeStyle = '#777';
-	  	//context.setLineDash([10,10]);
-	  	//context.fillStyle = '#ccc';
-	  //	context.rect(controlAreaX, controlAreaY, controlAreaW, controlAreaH);
-	  	//context.fill();
-	  //	context.stroke();
-
 	  	//debug text
 	  	context.beginPath();
 		context.font = "20px sans-serif";
@@ -115,21 +113,14 @@ function Setup(){
 	  	
 	  	//reset dash
 	  	//context.setLineDash([]);
-
-
-
-
 	  	context.restore();
-
-	  }
-	});
-
-	gameLoop.start();
-
 }
 
 //HTML event listener
 document.addEventListener("DOMContentLoaded", function(){
+
+	canvas = document.getElementById("myCanvas");
+	context = canvas.getContext("2d");
 
 	//get elements from the HTML
 	//grid = document.querySelector('#grid');
