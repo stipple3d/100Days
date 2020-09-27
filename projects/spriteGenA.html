@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Stipple3D - 100 Days - Sprite Generation</title>
+	<link rel="stylesheet" href="../styles/main.css" />
+	<style>
+		.slidecontainer {
+		  width: 256px; /* Width of the outside container */
+		}
+
+		/* The slider itself */
+		.slider {
+		  -webkit-appearance: none;  /* Override default CSS styles */
+		  appearance: none;
+		  width: 100%; /* Full-width */
+		  height: 25px; /* Specified height */
+		  background: #d3d3d3; /* Grey background */
+		  outline: none; /* Remove outline */
+		  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+		  -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+		  transition: opacity .2s;
+		}
+
+		/* Mouse-over effects */
+		.slider:hover {
+		  opacity: 1; /* Fully shown on mouse-over */
+		}
+
+		/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+		.slider::-webkit-slider-thumb {
+		  -webkit-appearance: none; /* Override default look */
+		  appearance: none;
+		  width: 25px; /* Set a specific slider handle width */
+		  height: 25px; /* Slider handle height */
+		  background: #8ac80b; /* Green background */
+		  cursor: pointer; /* Cursor on hover */
+		}
+
+		.slider::-moz-range-thumb {
+		  width: 25px; /* Set a specific slider handle width */
+		  height: 25px; /* Slider handle height */
+		  background: #8ac80b; /* Green background */
+		  cursor: pointer; /* Cursor on hover */
+		}
+
+		#output{
+			width: 50%;
+			word-wrap: break-word;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<div id="header">
+		<a id="logo" href='../index.html'><img src="../images/newLogoTemp1.png" /></a>
+		<h3>100 Days Of Code </h3>
+		<h1>Sprite Generation</h1>
+		<a href='../index.html'>BackToMenu</a>
+	</div>
+	<canvas id="myCanvas" width="256" height="256"></canvas>
+	<div class="slidecontainer">
+	  <input type="range" min="1" max="16" value="16" class="slider" id="myRange">
+	</div>
+	<div id="demo"></div>
+	<div id="output"></div>
+	<!-- <script src="../s3d/gameLoop.js"></script> -->
+	<!-- <script src="src/spriteGenA_game.js"></script> -->
+	<script src="src/spriteGenA_init.js"></script>
+
+
+</body>
+</html>
