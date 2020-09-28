@@ -3,7 +3,7 @@ let s3dLoop;
 let game;
 function Setup(){
 	game = new PathfindingGameA();
-	s3dLoop = new s3dGameLoop(1, game.update, game.render);
+	s3dLoop = new s3dGameLoop(6, game.update, game.render);
 	s3dLoop.startLoop();
 }
 //HTML event listener
