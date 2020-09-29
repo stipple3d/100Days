@@ -12,3 +12,4 @@ document.addEventListener("DOMContentLoaded", function(){
 	context = canvas.getContext("2d");
     Setup();
 });
+
