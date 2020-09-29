@@ -120,6 +120,16 @@ class RayEmitter{
 			//		- function to calculate a 'look at' value (that takes
 			//			into account the angle offset from the emitter's 'lookAt'
 			//			direction)
+
+/*
+
+// angle in radians
+var angleRadians = Math.atan2(p2.y - p1.y, p2.x - p1.x);
+
+// angle in degrees
+var angleDeg = Math.atan2(p2.y - p1.y, p2.x - p1.x) * 180 / Math.PI;
+
+*/
 		}
 
 

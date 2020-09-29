@@ -3,7 +3,7 @@ class Loader{
 		this.startingValue = _startingValue;
 		this.targetValue = _targetValue;
 		this.totalValueToLoad = this.targetValue - this.startingValue;
-		this.currentValue = startingValue;
+		this.currentValue = this.startingValue;
 		this.valueRemainingToLoad = this.totalValueToLoad;
 		this.percComplete = (this.currentValue - this.startingValue) / this.totalValueToLoad;
 		this.loadingComplete = false;
