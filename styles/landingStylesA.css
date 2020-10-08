@@ -3,6 +3,7 @@
 	--featureColor: #8ac80b;
 	--lightColor: #dce0e3;
 	--popColor: #db933f;
+	/*#054251*/
 }
 
 body{
@@ -19,6 +20,40 @@ h1{
 h3{
 	font: 1.2em courier, sans-serif;
 }
+
+section{
+	display: flex;
+	flex-wrap:  wrap;
+}
+
+article{
+	max-width: 400;
+}
+
+article img{
+	width: 100px;
+	height: 100px;
+}
+
+article h1{
+
+}
+
+article p{
+
+}
+
+article ul{
+	
+}
+article li{
+
+}
+
+
+
+
+
 .highlightColorBlocks{
 	width: 100px;
 	height: 100px;
