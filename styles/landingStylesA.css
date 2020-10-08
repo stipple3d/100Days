@@ -1,10 +1,17 @@
+:root {
+	--bgColor: #2a2f38;
+	--featureColor: #8ac80b;
+	--lightColor: #dce0e3;
+	--popColor: #db933f;
+}
+
 body{
 	/*background-color: #222629;*/
-	background-color: #2a2f38;
+	background-color: var(--bgColor);
 	
 	font: 1em impact, sans-serif;
 	text-align: center;
-	color: #dce0e3;
+	color: var(--lightColor);
 }
 h1{
 	font:2em courier, sans-serif;
