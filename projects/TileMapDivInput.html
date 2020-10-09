@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>100 Days - TileMap in DIV w/ Input</title>
+	<style>
+		#grid{
+			margin-left: auto;
+			margin-right: auto;
+			width: 640px;
+			height: 640px;
+			display: flex;
+			flex-wrap: wrap;
+			background: #2a2f38;
+			border: 1px solid #555;
+		}
+		#grid div{
+			width: 64px;
+			height: 64px;
+			background-color: #336699;
+			text-align: center;
+			font: 30px Arial, sans-serif;
+		}
+		#grid .land{
+			background-color: #8ac80b;
+		}
+		#grid .highlighted{
+			background-color: #8ac80b;
+		}
+		#message{
+			text-align: center;
+		}
+	</style>
+	<link rel="stylesheet" href="../styles/main.css" />
+</head>
+<body>
+	<div id="header">
+		<a id="logo" href='../index.html'><img src="../images/newLogoTemp1.png" /></a>
+		<h3>100 Days Of Code </h3>
+		<h1>TileMap in DIV w/ Input</h1>
+		<a href='../index.html'>BackToMenu</a>
+	</div>
+	<!-- <canvas id="myCanvas" width="600" height="600"></canvas> -->
+	<h3 id='message'>TEXT</h3>
+	<div id='grid'></div>
+	<!-- <script src="src/gridLines.js"></script> -->
+	<script src="src/grid.js"></script>
+	<script src="src/tileMapDivInputA.js"></script>
+</body>
+</html>
