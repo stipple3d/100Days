@@ -3,8 +3,6 @@
 //DATA
 const gridRows = 10;
 const gridCols = 10;
-//const gridCellWidth = 120;
-//const gridCellHeight = 120;
 
 //GLOBAL VARS
 let grid, messageText;
@@ -42,6 +40,9 @@ function SetupGame(){
 		}
 	}
 
+	//TODO: walker? island generation? (center, no edges)
+	//TODO: LRUD keyboard handling 
+	//TODO: player on map
 
 
 }
