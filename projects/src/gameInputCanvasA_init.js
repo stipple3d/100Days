@@ -5,7 +5,7 @@ let game;
 
 function Setup(){
 	game = new Game();
-	s3dLoop = new s3dGameLoop(60, game.update, game.render);
+	s3dLoop = new s3dGameLoop(60, game.render, game.update);
 	s3dLoop.startLoop();
 }
 

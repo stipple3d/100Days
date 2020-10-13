@@ -91,7 +91,7 @@ class CanvasGameInputA{
 		}
 	}
 
-	addButton = function(_id, _cb){
+	addButton = function(_id, _pressCB, _releaseCB){
 
 		var btn;
 
@@ -111,7 +111,7 @@ class CanvasGameInputA{
 		}
 
 		this.activeBtns.push(btn);
-		btn.activateButton();//TODO: pass in the callback(s) for the button
+		btn.activateButton(_pressCB, _releaseCB);//TODO: pass in the callback(s) for the button
 
 	}
 
@@ -150,6 +150,16 @@ class CanvasGameInputA{
 		stick.activateStick();//TODO: pass in the callback(s) for the button
 	}
 
+	getStickNormVector = function(_id){
+		for(var st = 0; st < this.activeSticks.length; st++){
+			if(this.activeSticks[st].ID == _id)
+				return this.activeSticks[st].normVector;
+		}
+
+		//if none found
+		return undefined;
+	}
+
 	getStickDirection = function(){
 		
 	}
@@ -174,7 +184,7 @@ class InputButton{
 		this.h = _h;
 
 		//COLORS
-		//S#D GREEN : 8ac80b
+		//S3D GREEN : 8ac80b
 		//LIGHTER : ABED26
 		//DARKER : 4e7401
 
@@ -199,12 +209,16 @@ class InputButton{
 		if(_x >= this.x && _x <= this.x + this.w &&
 			_y >= this.y && _y <= this.y + this.h){
 			this.pressed = true;
+			if(this.cb_onPress != undefined)
+				this.cb_onPress();
 		}
 	}
 
 	registerMouseUp = function(){
 		if(this.pressed){
 			this.pressed = false;
+			if(this.cb_onRelease != undefined)
+				this.cb_onRelease();
 		}
 	}
 
@@ -354,6 +368,11 @@ class InputStick{
 
 		this.stickAngle;
 
+		//this is what is returned for direction
+		//(X/Y components normalized, can be adjusted by speed and time)
+		this.normVector = new Vector2D();
+		
+
 
 	}
 
@@ -362,8 +381,6 @@ class InputStick{
 
 		var distX = _x - this.x;
 		var distY = _y - this.y;
-		/*var distX = this.x - _x;
-		var distY = this.y - _y;*/
 
 		this.stickDistFromCenter = Math.sqrt((distX * distX) + (distY * distY));
 
@@ -373,6 +390,10 @@ class InputStick{
 			this.stickX = _x;
 			this.stickY = _y;
 			this.dragging = true;
+			//store, normalize and set relative magnitude of the current sick direction
+			this.normVector.x = this.stickX - this.x;
+			this.normVector.y = this.stickY - this.y;
+			this.normVector.setMag(this.stickDistFromCenter / this.bgRadius);
 		}
 	}
 
@@ -382,6 +403,7 @@ class InputStick{
 			this.stickY = this.y;
 			this.stickDistFromCenter = 0;
 			this.dragging = false;
+			this.normVector = new Vector2D();
 		}
 	}
 
@@ -392,8 +414,6 @@ class InputStick{
 			var curY = game.input.canvasMouseY;
 			var distX = curX - this.x;
 			var distY = curY - this.y;
-			/*var distX = this.x - curX;
-			var distY = this.y - curY;*/
 
 			this.stickDistFromCenter = Math.sqrt((distX * distX) + (distY * distY));
 
@@ -417,6 +437,11 @@ class InputStick{
 				//CONSTRAIN DISTANCE TO MAX AND 
 				this.stickDistFromCenter = this.bgRadius;
 			}
+
+			//store, normalize and set relative magnitude of the current sick direction
+			this.normVector.x = this.stickX - this.x;
+			this.normVector.y = this.stickY - this.y;
+			this.normVector.setMag(this.stickDistFromCenter / this.bgRadius);
 		}
 
 	}
@@ -499,6 +524,9 @@ class InputStick{
 				context.fillText(this.ID + ' STICK-DRAGGING: ' + Math.round(this.stickDistFromCenter) + ', ' + this.stickAngle * (180/Math.PI), 50, canvas.height /2);
 			if(this.ID == 'R')
 				context.fillText(this.ID + ' BUTTON DOWN', 50, canvas.height /2 + 30);
+
+			context.fillText('REL stick: ' + (this.stickX - this.x) + ', ' + (this.stickY - this.y), 50, canvas.height /2 + 60);
+			context.fillText('normVec: ' + this.normVector.x + ', ' + this.normVector.y, 50, canvas.height /2 + 90);
 
 			context.beginPath();
 			context.strokeStyle = 'white';
