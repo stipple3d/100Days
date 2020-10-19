@@ -17,10 +17,10 @@ document.addEventListener("DOMContentLoaded", function(){
 
 const gameData = {
 
-zonesWide: 9,
-zonesHigh: 9,
-minPerZone: 0,
-maxPerZone: 3,
+zonesWide: 7,
+zonesHigh: 7,
+minPerZone: 1,
+maxPerZone: 6,
 zoneEdgeBuffer: 20,
 minDistBetween: 0,
 startingChoiceMethod: 'random' //'random', 'centerZone', 'centerClosest'

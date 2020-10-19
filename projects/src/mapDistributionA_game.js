@@ -19,6 +19,14 @@ class Game{
 		//		(acts as a quadtree-ish/ chunk-based system that only loads the 
 		//		info around the player)
 
+		this.inputHandler = new EightDirHandler();
+		//FIXME: when both arrows and WASD are active and more than one set is being used at the
+		//			same time, there are missed registers and erratic results. Need to research it.
+		//			(it appears each set on its own works as intended, even if both are active. Just
+		//			if they are combined... ???)
+		this.inputHandler.activateArrows();
+		this.inputHandler.activateWASD();
+
 	}
 
 	//NOTE: delta time is coming from the game loop
@@ -73,11 +81,23 @@ class Game{
 
 		//DEBUG TEXT
 
-		/*context.beginPath();
+		context.beginPath();
 		context.fillStyle = 'white';
 		context.font = '20px Arial';
-		context.fillText('CanvasMouseX: ' + this.input.canvasMouseX, 10,20);
-		context.fillText('CanvasMouseY: ' + this.input.canvasMouseY, 10,50);*/
+		context.fillText('H DIRS: ' + this.inputHandler.horDirHistory, 10,20);
+		context.fillText('V DIRS: ' + this.inputHandler.vertDirHistory, 10,50);
+		context.fillText('DIR: ' + this.inputHandler.getDirection(), 10,80);
+
+		/*context.fillText('upArrow: ' + this.inputHandler.upArrowPressed, 300,20);
+		context.fillText('downArrow: ' + this.inputHandler.downArrowPressed, 300,40);
+		context.fillText('leftArrow: ' + this.inputHandler.leftArrowPressed, 300,60);
+		context.fillText('rightArrow: ' + this.inputHandler.rightArrowPressed, 300,80);
+
+		context.fillText('W: ' + this.inputHandler.wPressed, 300,100);
+		context.fillText('A: ' + this.inputHandler.aPressed, 300,120);
+		context.fillText('S: ' + this.inputHandler.sPressed, 300,140);
+		context.fillText('D: ' + this.inputHandler.dPressed, 300,160);*/
+		//context.fillText('CanvasMouseY: ' + this.input.canvasMouseY, 10,50);
 
 		//_____________________
 		context.restore();
