@@ -20,27 +20,31 @@ function Preload(){
 	    Setup();
 	};
 	//set the image src AFTER the onload function has been defined
-	characterImg.src = '../images/quickWalk64_sheet.png';
+	//characterImg.src = '../images/quickWalk64_sheet.png';
+	characterImg.src = '../images/skeleWalk01_sheet.png';
+	
 }
 
 function Setup(){
 	//_sheet, _sCols, _sRows, _x, _y, _w, _h, _initVal = 1
-	player = new AnimatedCharacterWalkerA(characterImg, 4, 2, 0, 0, 64, 64);
-	player.addAnimation('down', [0,1]);
-	player.addAnimation('up', [2,3]);
-	player.addAnimation('right', [4,5]);
-	player.addAnimation('left', [6,7]);
+	player = new AnimatedCharacterWalkerA(characterImg, 3, 4, 0, 0, 32, 32);
+	player.addAnimation('down', [6,7,8]);
+	player.addAnimation('up', [9,10,11]);
+	player.addAnimation('right', [0,1,2]);
+	player.addAnimation('left', [3,4,5]);
 
 	arrowHandler = new FourDirArrowHandler();
 
 	gameLoop = GameLoop({
-		fps: 8,
+		fps: 6,
 	  update: function(dt) {
 	  
 	  	player.update(arrowHandler.getDir());
 
 	  },
 	  render: function() {
+
+	  	context.imageSmoothingEnabled = false;
 
 	  	player.draw();
 
