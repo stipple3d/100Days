@@ -1,25 +1,77 @@
 class Game{
 	constructor(){
 
+		//- objects that are not parented to any other object:
+		//		- positioned relative ot the canvas (TL corner)
+		//		- rotation is in the context rotation (set in draw for the object)
+		//		- scale is in the context scale (set in draw for the object)
+
+		//- objects that are parented to another object:
+		//		- axis are rotated to match the parent object
+		//		- positioning is relative to the parent's origin, assuming the rotation was flattened back to normal
+		//		- scale will be cumulative (objects scale factors will be multiplied with those above it in the tree)
+
 		this.clearOnRender = true;
 
 		//all must extend the GameObject class
-		this.controlObj = new Rect({_w: 100, _h: 10, _x: canvas.width /2, _y: canvas.height /2, _rot: 0 * Math.PI / 180, _sX: 1, sY: 1});
+		this.controlObj = new Rect({_w: 100, _h: 10, _x: canvas.width /2, _y: canvas.height /2, _rot: 0 * Math.PI / 180});
 
 		this.nonParentedObjects = [];
 
 		var obj;
 		var subObj;
 
+		//center marker (stationary)
 		obj = new Circle({_radius: 2, _x: canvas.width /2, _y: canvas.height /2});
 		this.nonParentedObjects.push(obj);
 
+		//this is basically an empty container (just showing a tiny dot)
+		//	to hold a ring of other circles around it
 		obj = new Circle({_radius: 1, _x: 100});
 
+		//setting a distance from center that the ring should be
+		var distFromCenter = 30;
+
+		//holders for the calculated X/Y RELATIVE positions of each ring element
+		var ringX, ringY;
+
+		//loop through 8 equal directions around the point
 		for(var deg = 0; deg < 360; deg += 45){
-			subObj = new Circle({_radius: 2, _x: 30, _y: 0, _rot: deg * Math.PI / 180, _sX: 10});
+			console.log('deg: ' + deg);
+
+			//calculate the X/Y positions RELATIVE to the center of the ring
+			//(this will be the LOCAL position and will be added to the parent once they are child-ed)
+			ringX = distFromCenter * Math.cos(deg * Math.PI /180);
+			ringY = distFromCenter * Math.sin(deg * Math.PI /180);
+			console.log('ringPos: ' + ringX + ', ' + ringY);
+
+			//create the object
+			subObj = new Circle({_radius: 2, _x: ringX, _y: ringY, _rot: deg * Math.PI /180, _sX: 1});
+			console.log(subObj);
+			//add it to the empty
 			obj.addChild(subObj);
 		}
+
+
+			//TESTING
+			/*var deg = 90;
+
+			//calculate the X/Y positions RELATIVE to the center of the ring
+			//(this will be the LOCAL position and will be added to the parent once they are child-ed)
+			ringX = distFromCenter * Math.cos(deg * Math.PI /180);
+			ringY = distFromCenter * Math.sin(deg * Math.PI /180);
+			console.log('ringPos: ' + ringX + ', ' + ringY);
+
+			//create the object
+			subObj = new Circle({_radius: 2, _x: ringX, _y: ringY, _rot: deg * Math.PI /180, _sX: 1});
+			console.log(subObj);
+			//add it to the empty
+			obj.addChild(subObj);*/
+
+
+
+
+		console.log('empty children: ' + obj.children.length);
 
 		this.controlObj.addChild(obj);
 
@@ -36,9 +88,12 @@ class Game{
 		//this.controlObj.x += (Math.random() * 100 -50) * _deltaTime; 
 		//this.controlObj.y += (Math.random() * 100 -50) * _deltaTime; 
 
-		//this.controlObj.rotation += (180 * _deltaTime) * Math.PI /180; 
-		console.log(this.controlObj.children[0].rotation);
-		this.controlObj.children[0].localRot += (90 * _deltaTime) * Math.PI /180; 
+this.controlObj.rotate(  (90 * _deltaTime) * Math.PI /180  ); 
+
+		//console.log(this.controlObj.children[0].rotation);
+
+this.controlObj.children[0].rotate(   (90 * _deltaTime) * Math.PI /180   ); 
+
 		this.controlObj.update(_deltaTime);
 
 		for(var np = 0; np < this.nonParentedObjects.length; np++){
@@ -63,33 +118,36 @@ class Game{
 		for(var np = 0; np < this.nonParentedObjects.length; np++){
 			this.nonParentedObjects[np].render();
 		}
-
-
-		//testing cumulative drawing (rot/position)
-		context.beginPath();
-		context.strokeStyle = 'yellow';
-		//context.moveTo(canvas.width /2, canvas.height /2);
 		
-		/*context.translate(canvas.width /2, canvas.height /2);
-		context.moveTo(0, 0);
-		context.lineTo(100, 0);
-		context.translate(100,0);
-		context.rotate(45 * Math.PI /180);
-		context.moveTo(0, 0);
-		context.lineTo(100, 0);
-		context.translate(100,0);
-		context.rotate(45 * Math.PI /180);
-		context.moveTo(0, 0);
-		context.lineTo(100, 0);
-		context.stroke();*/
-
 		//DEBUG TEXT
 
-		/*context.beginPath();
+		context.beginPath();
 		context.fillStyle = 'white';
-		context.font = '20px Arial';
-		context.fillText('CanvasMouseX: ' + this.input.canvasMouseX, 10,20);
-		context.fillText('CanvasMouseY: ' + this.input.canvasMouseY, 10,50);*/
+		context.font = '12px Arial';
+		context.fillText('Control Obj Pos: ' + Math.round(this.controlObj.position.x) + ', ' + Math.round(this.controlObj.position.y), 10,20);
+		context.fillText('Control Obj Scale: ' + Math.round(this.controlObj.scale.x) + ', ' + Math.round(this.controlObj.scale.y), 10,40);
+		context.fillText('Control Obj Rot: ' + Math.round(this.controlObj.rotation), 10,60);
+		context.fillText('Control Obj LOCAL Pos: ' + Math.round(this.controlObj.localPosition.x) + ', ' + Math.round(this.controlObj.localPosition.y), 10,80);
+		context.fillText('Control Obj LOCAL Scale: ' + Math.round(this.controlObj.localScale.x) + ', ' + Math.round(this.controlObj.localScale.y), 10,100);
+		context.fillText('Control Obj LOCAL Rot: ' + Math.round(this.controlObj.localRotation), 10,120);
+		context.fillText('Control Obj DISTANCE VECTOR: ' + Math.round(this.controlObj.vectorDistance), 10,140);
+
+		context.fillText('empty Pos: ' + Math.round(this.controlObj.children[0].position.x) + ', ' + Math.round(this.controlObj.children[0].position.y), 10,canvas.height - 140);
+		context.fillText('empty Scale: ' + Math.round(this.controlObj.children[0].scale.x) + ', ' + Math.round(this.controlObj.children[0].scale.y), 10,canvas.height - 120);
+		context.fillText('empty Rot: ' + Math.round(this.controlObj.children[0].rotation), 10,canvas.height - 100);
+		context.fillText('empty LOCAL Pos: ' + Math.round(this.controlObj.children[0].localPosition.x) + ', ' + Math.round(this.controlObj.children[0].localPosition.y), 10,canvas.height - 80);
+		context.fillText('empty LOCAL Scale: ' + Math.round(this.controlObj.children[0].localScale.x) + ', ' + Math.round(this.controlObj.children[0].localScale.y), 10,canvas.height - 60);
+		context.fillText('empty LOCAL Rot: ' + Math.round(this.controlObj.children[0].localRotation), 10,canvas.height - 40);
+		context.fillText('empty DISTANCE VECTOR: ' + Math.round(this.controlObj.children[0].vectorDistance), 10,canvas.height - 20);
+
+		context.fillText('firstRing Pos: ' + Math.round(this.controlObj.children[0].children[1].position.x) + ', ' + Math.round(this.controlObj.children[0].children[1].position.y), canvas.width /2, canvas.height - 140);
+		context.fillText('firstRing Scale: ' + Math.round(this.controlObj.children[0].children[1].scale.x) + ', ' + Math.round(this.controlObj.children[0].children[1].scale.y), canvas.width /2,canvas.height - 120);
+		context.fillText('firstRing Rot: ' + Math.round(this.controlObj.children[0].children[1].rotation), canvas.width /2,canvas.height - 100);
+		context.fillText('firstRing LOCAL Pos: ' + Math.round(this.controlObj.children[0].children[1].localPosition.x) + ', ' + Math.round(this.controlObj.children[0].children[1].localPosition.y), canvas.width /2,canvas.height - 80);
+		context.fillText('firstRing LOCAL Scale: ' + Math.round(this.controlObj.children[0].children[1].localScale.x) + ', ' + Math.round(this.controlObj.children[0].children[1].localScale.y), canvas.width /2,canvas.height - 60);
+		context.fillText('firstRing LOCAL Rot: ' + Math.round(this.controlObj.children[0].children[1].localRotation), canvas.width /2,canvas.height - 40);
+		context.fillText('firstRing DISTANCE VECTOR: ' + Math.round(this.controlObj.children[0].children[1].vectorDistance), canvas.width /2,canvas.height - 20);
+		
 
 		//_____________________
 		context.restore();
@@ -100,31 +158,23 @@ class Game{
 class GameObject{
 	constructor({_x = 0, _y = 0, _rot = 0, _sX = 1, _sY = 1} = {}){
 
+		//actual calculated canvas position
 		this.position = new Vector2D(_x, _y);
-		//this.x = _x;
-		//this.y = _y;
+		//current cumulative rotation
 		this.rotation = _rot;
+		//current cumulative scale factor
 		this.scale = new Vector2D(_sX, _sY);
-		//this.sX = _sX;
-		//this.sY = _sY;
 
-		//LOCAL 'relative' values (within the parent, if there is one)
-		// (these do not change, unless explicitly modified, ie: they are not 
-		//	updated as the parent moves, that is 'current/actual' values held
-		//	in the main X/Y/ROT/SCALE values)
-
-		//	(if there is no parent, these are not used?)
-
-		//	(They are just the fallback of what the initial values were when the object was created)
+		//These are the values we want the object to have relative to the parent (if there is one)
+		//position within the world or the parent	
 		this.localPosition = new Vector2D(_x, _y);
+		//distance of the local Position vector (for use in finding rotated position)
+		//TODO: recalc this if the local position is changed
 		this.vectorDistance = Math.sqrt((_x * _x) + (_y * _y));
-		
-		//this.localX = _x;
-		//this.localY = _y;
-		this.localRot = _rot;
+		//rotation change within the parent (or in the world if not)
+		this.localRotation = _rot;
+		//additional scale factor to be multiplied with any coming from parents
 		this.localScale = new Vector2D(_sX, _sY);
-		//this.localScaleX = _sX;
-		//this.localScaleY = _sY;
 
 		//TODO: anchor point
 		//TODO: velocity X/Y
@@ -132,6 +182,13 @@ class GameObject{
 
 		this.children = [];
 		this.parent = undefined;
+
+		//LOCAL 'relative' values (within the parent, if there is one)
+		// (these do not change, unless explicitly modified, ie: they are not 
+		//	updated as the parent moves, that is 'current/actual' values held
+		//	in the main X/Y/ROT/SCALE values)
+
+		//	(if there is no parent, these are not used?)
 
 		//TODO: cumulative scale & rotation values from the chain of parents
 		//		(each update, the object needs to have a cumulative scale and rotation 
@@ -167,24 +224,57 @@ class GameObject{
 	}
 
 	addChild = function(_go){
+		console.log('GO adding child');
 		this.children.push(_go);
 		_go.setParent(this);
 	}
 
 	setParent = function(_go){
+		//set parent
 		this.parent = _go;
-		console.log('pos(before): ' + this.position.x + ', ' + this.position.y);
-		console.log('vectorDistance: ' + this.vectorDistance);
-		console.log('parentRot: ' + this.parent.rotation);
-		console.log('Parentpos(before): ' + this.parent.position.x + ', ' + this.parent.position.y);
+		//run function to update calculations
+		this.updateCalcs();
+	}
 
-		//set initial values relative to the parent object
-		this.rotation = this.parent.rotation + this.localRot;
+	rotate = function(_rads){
+		if(this.parent != undefined){
+			this.localRotation += _rads;
+			this.rotation = this.parent.rotation + this.localRotation;
+		}
+		else{
+			this.localRotation += _rads;
+			this.rotation = this.localRotation;
+		}
+	}
 
-		this.position.x = this.parent.position.x + this.vectorDistance * Math.cos(this.rotation);
-		this.position.y = this.parent.position.y + this.vectorDistance * Math.sin(this.rotation);
-		console.log('pos(after): ' + this.position.x + ', ' + this.position.y);
+	updateCalcs = function(){
+		//console.log('pos(before): ' + this.position.x + ', ' + this.position.y);
+		//console.log('vectorDistance: ' + this.vectorDistance);
+		//console.log('parentRot: ' + this.parent.rotation);
+		//console.log('Parentpos(before): ' + this.parent.position.x + ', ' + this.parent.position.y);
 		
+
+		//*****************************************
+		//FIXME: Somehwere in here or in the drawing for the shapes, the secondary angle/distance offset
+		//			is being lost. Possibly because we don't want to add it to the position/rotation for
+		//			positioning or it adds the relative position twice. We do want to add it for the drawing
+		//			in the 2nd step? Just guessing...
+
+		//			also possible I am translating to the wrong center (one parent back in the stack)
+		//			to draw???
+		//*****************************************
+
+
+		//first find this object's position relative to the parent's position in the PARENT'S coord system
+		this.position.x = this.parent.position.x + this.vectorDistance * Math.cos(this.parent.rotation);
+		this.position.y = this.parent.position.y + this.vectorDistance * Math.sin(this.parent.rotation);
+		//console.log('pos(after): ' + this.position.x + ', ' + this.position.y);
+
+		//then, add this objects local rotation to the parent's rotation
+		//(this then acts as this object's coord system, if it has children)
+		this.rotation = this.parent.rotation + this.localRotation;
+		
+		//factor the local scale with the parent's scale factor
 		this.scale.x = this.parent.scale.x * this.localScale.x;
 		this.scale.y = this.parent.scale.y * this.localScale.y;
 	}
@@ -209,13 +299,17 @@ class Circle extends GameObject{
 	change = function(_deltaTime){
 		if(this.parent != undefined){
 
+			this.updateCalcs();
+
 			//calculate the X position
 			// (parentX + localPosition.x @ parent's current rotation angle), same for Y
-			this.rotation = this.parent.rotation + this.localRot;
+
+
+			/*this.rotation = this.parent.rotation + this.localRotation;
 			this.position.x = this.parent.position.x + this.vectorDistance * Math.cos(this.rotation);
 			this.position.y = this.parent.position.y + this.vectorDistance * Math.sin(this.rotation);
 			this.scale.x = this.parent.scale.x * this.localScale.x;
-			this.scale.y = this.parent.scale.y * this.localScale.y;
+			this.scale.y = this.parent.scale.y * this.localScale.y;*/
 		}
 	}
 
@@ -238,7 +332,7 @@ class Circle extends GameObject{
 		}
 		context.translate(this.localPosition.x, this.localPosition.y);*/
 
-context.translate(this.position.x, this.position.y);
+		context.translate(this.position.x, this.position.y);
 
 		context.rotate(this.rotation);
 		context.scale(this.scale.x, this.scale.y);
@@ -263,13 +357,17 @@ class Rect extends GameObject{
 	change = function(_deltaTime){
 		if(this.parent != undefined){
 
+			this.updateCalcs();
+
 			//calculate the X position
 			// (parentX + localPosition.x @ parent's current rotation angle), same for Y
-			this.rotation = this.parent.rotation + this.localRot;
+
+
+			/*this.rotation = this.parent.rotation + this.localRotation;
 			this.position.x = this.parent.position.x + this.vectorDistance * Math.cos(this.rotation);
 			this.position.y = this.parent.position.y + this.vectorDistance * Math.sin(this.rotation);
 			this.scale.x = this.parent.scale.x * this.localScale.x;
-			this.scale.y = this.parent.scale.y * this.localScale.y;
+			this.scale.y = this.parent.scale.y * this.localScale.y;*/
 		}
 	}
 
@@ -290,9 +388,7 @@ class Rect extends GameObject{
 		}
 		context.translate(this.localPosition.x, this.localPosition.y);*/
 
-context.translate(this.position.x, this.position.y);
-
-
+		context.translate(this.position.x, this.position.y);
 		context.rotate(this.rotation);
 		context.scale(this.scale.x, this.scale.y);
 		context.fillRect(0,0, this.width, this.height);
