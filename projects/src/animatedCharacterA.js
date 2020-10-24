@@ -33,7 +33,7 @@ class AnimatedCharacterWalkerA{
 		//this.updatesUntilNextTick;
 		this.movementPerFrame = 8;
 
-		this.sizeMultiplier = 4;
+		this.sizeMultiplier = 3;
 	}
 
 	addAnimation = function(_name, _frames){
