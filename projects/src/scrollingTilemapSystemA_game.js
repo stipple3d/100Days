@@ -82,12 +82,38 @@ class Game{
 		}
 	}
 
+	mouseMoveTo = function(_x, _y){
+
+		console.log('mousemove: canvasOffset: ' + this.canvasOffset.x + ', ' + this.canvasOffset.y);
+
+		//TODO: calculate, validate and store the cursor Row and Col 
+		//		(that tile will be shown highlighted during render)
+
+		var row = Math.floor((_y + this.canvasOffset.y) / gameData.tileSize);
+		var col = Math.floor((_x + this.canvasOffset.x) / gameData.tileSize);
+		
+		if(row <0 || row > gameData.tilesHigh -1 ||
+			col <0 || col > gameData.tilesWide -1){
+			//invalid location
+			this.world.cursorRow = undefined;
+			this.world.cursorCol = undefined;
+		}
+		else{
+			this.world.cursorRow = row;
+			this.world.cursorCol = col;
+		}
+		
+	}
+
 }
 
 class WorldMap{
 	constructor(){
 		this.mapRows;
 		this.loadMap();
+
+		this.cursorRow = undefined;
+		this.cursorCol = undefined;
 	}
 
 	render = function(){
@@ -157,6 +183,14 @@ class MapTile{
 		}
 		
 		context.rect(this.x - game.canvasOffset.x +1, this.y - game.canvasOffset.y +1, gameData.tileSize -2, gameData.tileSize -2);
+
+		if(game.world.cursorRow == this.row &&
+			game.world.cursorCol == this.col){
+			context.strokeStyle = 'white';
+			context.lineWidth = 4;
+			context.stroke();
+		}
+
 		context.fill();
 		context.restore();
 

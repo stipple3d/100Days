@@ -23,6 +23,7 @@ class GameInputA{
 	handleCanvasMouseMove = (e) =>{
 		this.canvasMouseX = event.offsetX;
 		this.canvasMouseY = event.offsetY;
+		game.mouseMoveTo(this.canvasMouseX, this.canvasMouseY);
 	}
 
 	handleCanvasMouseDown = (e) =>{
