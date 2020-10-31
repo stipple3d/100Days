@@ -102,11 +102,11 @@ class WorldMap{
 		var leftInd = Math.floor(game.camera.getLeftVpBounds() / gameData.tileSize);
 		if(leftInd < 0)
 			leftInd = 0;
-		var bottomInd = Math.ceil(game.camera.getBottomVpBounds() / gameData.tileSize);
-		if(bottomInd >= gameData.tilesHigh -1)
+		var bottomInd = Math.floor(game.camera.getBottomVpBounds() / gameData.tileSize);
+		if(bottomInd > gameData.tilesHigh -1)
 			bottomInd = gameData.tilesHigh -1;
-		var rightInd = Math.ceil(game.camera.getRightVpBounds() / gameData.tileSize);
-		if(rightInd >= gameData.tilesWide -1)
+		var rightInd = Math.floor(game.camera.getRightVpBounds() / gameData.tileSize);
+		if(rightInd > gameData.tilesWide -1)
 			rightInd = gameData.tilesWide -1;
 
 		for(var row = topInd; row <= bottomInd; row++){
