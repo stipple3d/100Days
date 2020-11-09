@@ -4,6 +4,7 @@ let game;
 
 function Setup(){
 	game = new Game();
+	game.levelSetup();
 	s3dLoop = new s3dGameLoop(60, game.render, game.update);
 	s3dLoop.startLoop();
 }

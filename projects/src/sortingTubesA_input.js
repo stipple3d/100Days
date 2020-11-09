@@ -23,10 +23,16 @@ class CanvasGameInputA{
 		
 		this.canvasMouseX = e.offsetX;
 		this.canvasMouseY = e.offsetY;
+
 	}
 
 	handleCanvasMouseDown = (e) =>{
-		
+		e.preventDefault();
+		this.canvasMouseX = e.offsetX;
+		this.canvasMouseY = e.offsetY;
+		console.log(this.canvasMouseX + ', ' + this.canvasMouseY);
+
+		game.mouseClickAt(this.canvasMouseX, this.canvasMouseY);
 	}
 
 	handleDocMouseUp = (e) =>{

@@ -7,10 +7,13 @@ class Game{
 		this.tubes = [];
 
 		this.startX = 100;
-		this.tubeWidth = 20;
-		this.spaceBetween = 20;
+		this.tubeWidth = 40;
+		this.tubePadding = 3;
+		this.spaceBetween = 50;
 
-		this.levelSetup();
+		this.inputHandler = new CanvasGameInputA();
+
+		//this.levelSetup();
 
 	}
 
@@ -62,8 +65,21 @@ class Game{
 
 	mouseClickAt = function(_x, _y){
 
-		console.log('mouseClick: canvasOffset: ' + this.canvasOffset.x + ', ' + this.canvasOffset.y);
+		// console.log('mouseClick: canvasOffset: ' + this.canvasOffset.x + ', ' + this.canvasOffset.y);
 		
+
+		//check if the mouse click (on the canvas) is over one of the 
+		//tube objects
+
+		for(var t = 0; t < this.tubes.length; t++){
+			if(_x >= this.tubes[t].x &&
+				_x <= this.tubes[t].x + this.tubes[t].width &&
+				_y >= this.tubes[t].y &&
+				_y <= this.tubes[t].y + this.tubes[t].height){
+				this.tubes[t].toggleActive();
+			}
+		}
+
 	}
 
 	mouseMoveTo = function(_x, _y){
@@ -83,6 +99,10 @@ class Tube{
 		this.colors = numColors;
 		this.capacity = cap;
 		this.styleIndex = style;
+		this.width = game.tubeWidth + (game.tubePadding *2);
+		this.height = game.tubeWidth * (this.capacity + 0.5);
+
+
 
 		this.active = false;
 
@@ -101,6 +121,13 @@ class Tube{
 		
 	}
 
+	toggleActive = function(){
+
+		if(this.contents.length >0)
+			this.active = !this.active;
+		
+	}
+
 	update = function(_dt){
 		
 		
@@ -114,13 +141,18 @@ class Tube{
 		context.beginPath();
 		context.strokeStyle = 'grey';
 		context.lineWidth = 2;
-		context.rect(this.x, this.y, 20, 110);
+		context.rect(this.x, this.y, this.width, this.height);
 		context.stroke();
 
 		for(var b = 0; b < this.contents.length; b++){
 			context.beginPath();
 			context.fillStyle = gameData.colors[this.contents[b]];
-			context.arc(this.x + 10, this.y + 100 - (b * 20), 10, 0, Math.PI *2);
+			if(this.active && b == this.contents.length -1){
+				context.arc(this.x + (this.width /2), this.y, game.tubeWidth /2, 0, Math.PI *2);
+			}
+			else{
+				context.arc(this.x + (this.width /2), this.y + this.height - (b * game.tubeWidth) - game.tubeWidth/2, game.tubeWidth /2, 0, Math.PI *2);
+			}
 			context.fill();
 		}
 		
