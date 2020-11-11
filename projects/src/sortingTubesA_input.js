@@ -15,8 +15,6 @@ class CanvasGameInputA{
 		this.canvasMouseX = undefined;
 		this.canvasMouseY = undefined;
 
-		
-
 	}
 
 	handleCanvasMouseMove = (e) =>{
