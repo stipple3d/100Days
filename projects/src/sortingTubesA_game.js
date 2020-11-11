@@ -15,6 +15,9 @@ class Game{
 
 		//this.levelSetup();
 
+		this.selectedSourceIndex = undefined;
+
+
 	}
 
 	levelSetup = function(){
@@ -53,11 +56,11 @@ class Game{
 
 		//DEBUG TEXT
 
-		/*context.beginPath();
+		context.beginPath();
 		context.fillStyle = 'white';
 		context.font = '20px Arial';
-		context.fillText('CanvasMouseX: ' + this.input.canvasMouseX, 10,20);
-		context.fillText('CanvasMouseY: ' + this.input.canvasMouseY, 10,50);*/
+		context.fillText('selectedSourceIndex: ' + this.selectedSourceIndex, 10,20);
+		//context.fillText('CanvasMouseY: ' + this.input.canvasMouseY, 10,50);
 
 		//_____________________
 		context.restore();
@@ -76,7 +79,59 @@ class Game{
 				_x <= this.tubes[t].x + this.tubes[t].width &&
 				_y >= this.tubes[t].y &&
 				_y <= this.tubes[t].y + this.tubes[t].height){
-				this.tubes[t].toggleActive();
+
+				if(t == this.selectedSourceIndex){
+					//current source selected again, deselect it and clear 
+					//source index value
+					this.selectedSourceIndex = undefined;
+					this.tubes[t].toggleActive();
+				}
+				else{
+					//not the current selected source
+
+					//if there is a source, move the source ball
+					if(this.selectedSourceIndex != undefined){
+						if(this.tubes[t].hasRoom()){
+							//make sure the destination tube is not full
+							var movingValue = this.tubes[this.selectedSourceIndex].getSourceValue();
+							var destinationTopValue = this.tubes[t].getTopValue();
+
+							if(movingValue != undefined && (movingValue == destinationTopValue || destinationTopValue == undefined)){
+								//if there is a vlaue to move, move it
+								this.tubes[t].addBall(movingValue);
+								//remove the ball from the source before clearing source index
+								this.tubes[this.selectedSourceIndex].removeSourceBall();
+								//and clear selected and make the previous source not active
+								this.tubes[this.selectedSourceIndex].active = false;
+								this.selectedSourceIndex = undefined;
+							}
+
+							//else, no value, ignore the click
+
+							
+						}
+						else{
+							//destination tube is full, ignore click 
+
+							//TODO: play a "denied" sounce?
+						}
+						
+					}
+					else{
+						//else make this the source
+						this.selectedSourceIndex = t;
+						this.tubes[t].toggleActive();
+					}
+
+					
+
+					
+				}
+
+				//break out of the loop since we have found a tube in the click
+				//area already
+				return;
+
 			}
 		}
 
@@ -111,6 +166,49 @@ class Tube{
 		this.contents = [];
 
 		//console.log(this);
+	}
+
+	hasRoom = function(){
+		
+		if(this.contents.length < this.capacity)
+			return true;
+		else
+			return false;
+		
+	}
+
+	addBall = function(_val){
+		
+		this.contents.push(_val);
+		
+	}
+
+	removeSourceBall = function(){
+		
+		this.contents.length = this.contents.length -1;
+		
+	}
+
+	getSourceValue = function(){
+		
+		if(this.active){
+			return this.contents[this.contents.length -1];
+		}
+		else{
+			return undefined;
+		}
+		
+	}
+
+	getTopValue = function(){
+		
+		if(this.contents.length >0){
+			return this.contents[this.contents.length -1];
+		}
+		else{
+			return undefined;
+		}
+		
 	}
 
 	fillWithColor = function(_colorIndex){
