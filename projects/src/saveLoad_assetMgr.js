@@ -69,7 +69,7 @@ class AssetManager{
 				this.dataRequest = new XMLHttpRequest();
 				this.dataRequest.open('GET', this.queue[this.indexLoading].path, true);
 				this.dataRequest.onload = this.dataLoaded;
-				this.dataRequest.onerror = this.dataError;
+				this.dataRequest.onerror = this.dataLoadError;
 				this.dataRequest.send();
 
 			break;
@@ -77,21 +77,50 @@ class AssetManager{
 	}
 
 	dataLoaded = () =>{
-		console.log('dataLoaded running');
+		//console.log('dataLoaded running');
 		if(this.dataRequest.status >= 200 && this.dataRequest.status < 400){
 			//Success
-			console.log(this.dataRequest.responseText);
-			var data = JSON.parse(this.dataRequest.responseText);
+			var iObj = new Object();
+			//set name
+			iObj.name = this.queue[this.indexLoading].name;
+			//set data as a parsed responseText
+			iObj.data = JSON.parse(this.dataRequest.responseText);
+			//save path to the record as well for saving
+			iObj.path = this.queue[this.indexLoading].path;
+			//add the data object to the Data array
+			this.data.push(iObj);
 
-			console.log(data);
+			//console.log(data);
+			this.assetLoadComplete();
 		}
 		else {
 	    	// We reached our target server, but it returned an error
 	    	console('data error else')
 	  	}
 	}
-	dataError = () =>{
+	dataLoadError = () =>{
 		console.log('data Load error');
+	}
+
+	startDataSave = function(_index){
+		this.dataRequest = new XMLHttpRequest();
+		this.dataRequest.open('POST', this.data[_index].path, true);
+		this.dataRequest.setRequestHeader("Content-Type", "application/json");
+		this.dataRequest.onreadystatechange = this.dataSaved;
+		//this.dataRequest.onload = this.dataLoaded;
+		//this.dataRequest.onerror = this.dataLoadError;
+		//var data = JSON.stringify({ "name": name.value, "email": email.value }); 
+		this.dataRequest.send(this.data[_index].data);
+	}
+
+	dataSaved = () =>{
+		if (this.dataRequest.readyState === XMLHttpRequest.DONE && this.dataRequest.status === 200) {
+	        // Request finished. Do processing here.
+	        console.log('save complete');
+	    }
+	}
+	dataSaveError = () =>{
+		console.log('data Save error');
 	}
 
 	assetLoadComplete = function(){
