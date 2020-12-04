@@ -1,0 +1,14 @@
+{
+	"saves": [
+		{
+			"testValue": "125",
+		},
+		{
+			"testValue": "300",
+		},
+		{
+			"testValue": "25",
+		}
+	],
+	"defaultValue": "5"
+}
