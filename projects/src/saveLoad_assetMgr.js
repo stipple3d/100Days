@@ -16,6 +16,8 @@ class AssetManager{
 		this.totalToLoad = 0;
 
 		this.loadingComplete = false;
+
+		this.dataRequest = undefined;
 	}
 
 	addToQueue = function(_type, _path, _refName){
@@ -64,18 +66,34 @@ class AssetManager{
 			break;
 			case 'data':
 				//TODO: how to load data files (various types)
-				fetch(this.queue[this.indexLoading].path) // Call the fetch function passing the url of the API as a parameter
-				.then(() =>{
-				    // Your code for handling the data you get from the API
-				    console.log('dataLoadSuccess');
-				})
-				.catch(() =>{
-				    // This is where you run code if the server returns any errors
-				    console.log('dataLoadError');
-				});
+				this.dataRequest = new XMLHttpRequest();
+				this.dataRequest.open('GET', this.queue[this.indexLoading].path, true);
+				this.dataRequest.onload = this.dataLoaded;
+				this.dataRequest.onerror = this.dataError;
+				this.dataRequest.send();
+
 			break;
 		}
 	}
+
+	dataLoaded = () =>{
+		console.log('dataLoaded running');
+		if(this.dataRequest.status >= 200 && this.dataRequest.status < 400){
+			//Success
+			console.log(this.dataRequest.responseText);
+			var data = JSON.parse(this.dataRequest.responseText);
+
+			console.log(data);
+		}
+		else {
+	    	// We reached our target server, but it returned an error
+	    	console('data error else')
+	  	}
+	}
+	dataError = () =>{
+		console.log('data Load error');
+	}
+
 	assetLoadComplete = function(){
 		this.indexLoading ++;
 
