@@ -4,34 +4,30 @@
   <meta charset="utf-8">
   <title>Stipple3D -- 100 Days of Code</title>
   <link rel="stylesheet" href="styles/landingStylesA.css">
-
-<!-- <style rel="stylesheet" type="" id="internalCSS">
-	 :root {
-	--bgColor: #2a2f38;
-	--featureColor: #8ac80b;
-	--lightColor: #dce0e3;
-	--popColor: #db933f;
-}
-</style> -->
  
 </head>
 <body>
 
-
-
-
-<header>
-	<img id='logo' src='images/newLogoTemp1.png' />
-	<nav></nav>
+<!-- <header>
+	<img id='header_logo' src='images/newLogoTemp1.png' />
+	<h1 id='header_title'>Stipple3D</h1>
+	<h3 id='header_subheading'>100 Days Of Code</h3>
+	<div id='headerSmIconsContainer'>
+		<img src='images/socialIcons/sm_base.png' />
+		<img src='images/socialIcons/sm_base.png' />
+		<img src='images/socialIcons/sm_base.png' />
+	</div>
+	<!-- <nav></nav> -->
 </header>
+
 <main>
 
-	<input type="color" name="bgColor" id="bgPicker" value="#2a2f38" />
+	<!-- <input type="color" name="bgColor" id="bgPicker" value="#2a2f38" /> -->
 
 	<h1>stipple3D 100 Days Of Code </h1>
 	<h3>List of Test Projects:</h3>
 
-	<section>
+	<section id="projectCardContainer">
 		<!-- <li><a href='projects/loadingUITests.html'>Loading UI Tests</a></li>
 		<li><a href='projects/pointMovers.html'>Point-to-point movers</a></li>
 		<li><a href='projects/gridDivTestA.html'>interactive Grid using divs</a></li>
@@ -46,7 +42,7 @@
 			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
 			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
 			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-			<img src="images/projectImages/cardProjectImagePH_a-01.png" />
+			<img src="images/projectImages/projectImage_base.png" />
 			<ul class="skillList">
 				<li class="html"></li>
 				<li class="js"></li>
@@ -98,7 +94,7 @@
 
 	</section>
 
-	<aside>
+	<!-- <aside>
 		<div id="hColor1" class="highlightColorBlocks">1</div>
 		<div id='hColor2' class='highlightColorBlocks'>2</div>
 		<div id='hColor3' class='highlightColorBlocks'>3</div>
@@ -108,36 +104,11 @@
 		<div id='hBorder2' class='highlightColorBlocks'></div>
 		<div id='hBorder3' class='highlightColorBlocks'></div>
 		<div id='hBorder4' class='highlightColorBlocks'></div>
-	</aside>
+	</aside> -->
 </main>
 
 <footer></footer>
 
-<script>
-	const colorPicker = document.querySelector('#bgPicker');
-	console.log(colorPicker.value);
-
-	function handleUpdate(){
-		console.log(this.name);
-		document.documentElement.style.setProperty(`--${this.name}`, this.value);
-	}
-
-	colorPicker.addEventListener('change', handleUpdate);
-
-	/*
-
-	const mainSS = document.getElementById("internalCSS");
-	console.log(mainSS.cssRules.length);
-
-	let ruleList = document.styleSheets[0];
-	console.log(ruleList.cssRules);*/
-
-	/*for (let i=0; i < ruleList.length; i++) {
-	  //processRule(ruleList[i]);
-	  console.log(ruleList[i]);
-	}*/
-
-</script>
 
 
 <!-- <article>
@@ -153,3 +124,4 @@
 	
 </body>
 </html>
+

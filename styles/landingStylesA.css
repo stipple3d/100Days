@@ -21,13 +21,70 @@ h3{
 	font: 1.2em courier, sans-serif;
 }
 
-section{
+
+
+header{
+
+}
+#header_logo{
+
+}
+#header_title{
+	
+}
+#header_subheading{
+	
+}
+#headerSmIconsContainer{
+	
+}
+#headerSmIconsContainer img{
+	width: 60px;
+	height: 60px;
+}
+
+main{
+	background-color: black;
+
+}
+main h1{
+	
+}
+main h3{
+	
+}
+#projectCardContainer{
+	background-color: var(--featureColor);
+	width: 80%;
+}
+#projectCardContainer article{
+	background-color: var(--popColor);
+	width: 80%;
+}
+#projectCardContainer article h1{
+	font:3em arial, sans-serif;
+}
+#projectCardContainer article h3{
+	font:2em arial, sans-serif;
+}
+#projectCardContainer article p{
+	font:1em times, serif;
+}
+#projectCardContainer article img{
+	/*width: 200px;*/
+}
+#projectCardContainer article .skillList{
+	
+}
+
+
+/*section{
 	display: flex;
 	flex-wrap:  wrap;
 }
 
 article{
-	max-width: 400;
+	max-width: 400px;
 }
 
 article img{
@@ -48,11 +105,11 @@ article ul{
 }
 article li{
 
-}
+}*/
 
 
 
-
+/*
 
 .highlightColorBlocks{
 	width: 100px;
@@ -90,4 +147,4 @@ article li{
 #hBorder4{
 	border: 1px solid #db933f;
 	color: white;
-}
+}*/
