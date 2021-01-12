@@ -20,7 +20,6 @@ const iterations = 500;
 
 let iterationDisplay;
 
-
 //HTML event listener
 document.addEventListener("DOMContentLoaded", function(){
 	//get elements from the HTML

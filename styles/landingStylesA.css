@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap');
+
 :root {
 	--bgColor: #2a2f38;
 	--featureColor: #8ac80b;
@@ -10,22 +12,61 @@ body{
 	/*background-color: #222629;*/
 	background-color: var(--bgColor);
 	
-	font: 1em impact, sans-serif;
+	font: 1em Play, sans-serif;
 	text-align: center;
 	color: var(--lightColor);
 }
 h1{
-	font:2em courier, sans-serif;
+	font:2em Play, sans-serif;
 }
 h3{
-	font: 1.2em courier, sans-serif;
+	font: 1.2em Play, sans-serif;
 }
 
 
 
 header{
+	background-color: rgba(0,0,0,0.0);
+}
+header:hover{
+	background-color: rgba(0,0,0,0.5);
+}
+
+#logo_container{
+	width: 128px;
+	height:	128px;
+}
+
+#logo_bg_rect{
+	display: none;
+	/*fill: var(--bgColor);*/
 
 }
+/*#logo_container:hover{
+	border: 1px solid var(--popColor);
+	
+}*/
+#logo_partialCircle{
+	stroke: var(--lightColor);
+	stroke-width: 1.5;
+	stroke-linecap: round;
+}
+#logo_3d{
+	fill: var(--featureColor);
+	/*stroke: var(--lightColor);
+	stroke-width: 1;
+	*/
+}
+#logo_s{
+	fill: var(--lightColor);
+}
+/*#logo_d{
+	fill: var(--popColor);
+}*/
+
+
+
+
 #header_logo{
 
 }
@@ -44,7 +85,7 @@ header{
 }
 
 main{
-	background-color: black;
+	/*background-color: black;*/
 
 }
 main h1{
@@ -62,13 +103,13 @@ main h3{
 	width: 80%;
 }
 #projectCardContainer article h1{
-	font:3em arial, sans-serif;
+	font:3em Play, sans-serif;
 }
 #projectCardContainer article h3{
-	font:2em arial, sans-serif;
+	font:2em Play, sans-serif;
 }
 #projectCardContainer article p{
-	font:1em times, serif;
+	font:1em Play, serif;
 }
 #projectCardContainer article img{
 	/*width: 200px;*/
