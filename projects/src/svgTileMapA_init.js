@@ -8,6 +8,8 @@ const tilesHigh = 10;
 
 const tileSize = 60;
 
+let playerWorldX = 300;
+let playerWorldY = 300;
 
 function Setup(){
 
