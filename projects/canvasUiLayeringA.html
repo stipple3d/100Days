@@ -5,7 +5,32 @@
 	<title>Stipple3D - 100 Days - Canvas UI Layering</title>
 	<link rel="stylesheet" href="../styles/main.css" />
 	<style type="text/css">
-		
+		#gameArea{
+			/*background-color: yellow;*/
+			position: relative;
+			width: 700px;
+			height: 800px;
+			margin: 10px auto;
+		}
+		canvas{
+			background-color: white;
+			position: absolute;
+			top: 49px;
+			left: 49px;
+			z-index: -99;
+			margin: 0px;
+		}
+		#ui{
+			position: absolute;
+			z-index: -1;
+			/*opacity: 0.5;*/
+		}
+		#smIcons{
+			position: absolute;
+			/*background-color: yellow;*/
+			left: 50px;
+			bottom: 25px;
+		}
 	</style>
 </head>
 <body>
@@ -19,7 +44,16 @@
 	<div id="gameArea">
 		<canvas id="gameCanvas" width="600" height="600"></canvas>
 		<!-- UI Overlay (BG Image) -->
-		<!-- UI ELEMENTS (text, etc above the UI BG Image) -->
+		<div id="ui">
+			<img src="../images/uiOverlayA.png" alt="ui overlay image" />
+		</div>
+		<div id="smIcons">
+			<h3>SOCIAL MEDIA:</h3>
+			<img src="../images/socialIcons/sm_base.png" alt="test" />
+			<img src="../images/socialIcons/sm_base.png" alt="test" />
+		</div>
+		
+
 	</div>
 	<script src="../s3d/gameLoop.js"></script>
 	<script src="src/canvasUiLayeringA_game.js"></script>
