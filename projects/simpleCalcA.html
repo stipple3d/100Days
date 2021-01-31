@@ -19,6 +19,8 @@
 		#calcGrid button{
 			margin: 5px;
 			background-color: #999;
+			font-size: 30px;
+			color: #2a2f38;
 		}
 		#result{
 			grid-column: 1 / 5;
@@ -122,9 +124,7 @@
 			resultsDisplay.innerHTML = '0';
 
 		}
-		function DivideClick(){
-			// console.log('DIVIDE clicked');
-		}
+
 		function NumberClick(num){
 			// console.log(num + ' clicked');
 
@@ -139,18 +139,7 @@
 			currentDisplayString = currentDisplayString.concat(num.toString());
 			resultsDisplay.innerHTML = currentDisplayString;
 		}
-		function MultiplyClick(){
-			// console.log('MULTIPLY clicked');
-		}
-		function SubtractClick(){
-			// console.log('SUBTRACT clicked');
-		}
-		function AddClick(){
-			// console.log('ADD clicked');
-		}
-		function ReverseClick(){
-			// console.log('REVERSE clicked');
-		}
+
 		function DecimalClick(){
 			// console.log('DECIMAL clicked');
 
@@ -165,8 +154,77 @@
 				decimalInPlace = true;
 			}
 		}
+
+
+		function DivideClick(){
+			// console.log('DIVIDE clicked');
+		}
+		
+		function MultiplyClick(){
+			// console.log('MULTIPLY clicked');
+		}
+		function SubtractClick(){
+			// console.log('SUBTRACT clicked');
+		}
+		function AddClick(){
+			// console.log('ADD clicked');
+
+			//check if there is already an operation in progress
+			//(all the operations can also act as EQUALS too...)
+			if(operation == undefined){
+				//simple version, no previous operation pending
+
+				//store the built number (string) as a number in the runningTotal var
+				//(converting the string to a float)
+				runningTotal = parseFloat(currentDisplayString);
+
+				//mark that we are now in addition operation
+				operation = 'add';
+
+				//mark flag false, no decimal yet
+				decimalInPlace = false;
+
+				//clear the dispaly string
+				currentDisplayString = '';
+				//put a temporary '0' in the display text
+				//(when numbers are added, this will disappear)
+				resultsDisplay.innerHTML = '0';
+
+			}
+			else{
+				//more complicated. we need to handle the previous operation
+				//before we can move on to the new one
+			}
+
+		}
+		function ReverseClick(){
+			// console.log('REVERSE clicked');
+		}
+		
 		function EqualsClick(){
 			// console.log('EQUALS clicked');
+
+			var newNum = parseFloat(currentDisplayString);
+
+			if(operation == 'add'){
+				runningTotal += newNum;
+
+				//clear out operation
+				operation = undefined;
+				//mark flag false, no decimal yet
+				decimalInPlace = false;
+				//clear the dispaly string
+				currentDisplayString = runningTotal.toString();
+				//push the result to the display
+				resultsDisplay.innerHTML = currentDisplayString;
+
+				//FIXME: we need some way to display the result, but
+				//		then discard it if the user doesn't enter an operation 
+				//		key next. 
+
+				//	(if the next button pressed is a number, that starts a NEW process)
+			}
+
 		}
 
 	</script>
