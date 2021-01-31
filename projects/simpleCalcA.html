@@ -48,8 +48,9 @@
 	</div>
 
 	<div id="calcGrid">
+
 		<div id="result">
-			<h1 id="resultsDisplay">0</h1>
+			<h1 id="resultsDisplay">TEST</h1>
 		</div>
 
 		<button id="clear"onclick="ClearMemory()">C</button>
@@ -62,7 +63,7 @@
 
 		<button id="4"onclick="NumberClick(4)">4</button>
 		<button id="5"onclick="NumberClick(5)">5</button>
-		<button id="6"onclick="NumberClick(6)">9</button>
+		<button id="6"onclick="NumberClick(6)">6</button>
 		<button id="subtract"onclick="SubtractClick()">-</button>
 
 		<button id="1"onclick="NumberClick(1)">1</button>
@@ -74,50 +75,98 @@
 		<button id="0"onclick="NumberClick(0)">0</button>
 		<button id="decimal"onclick="DecimalClick()">.</button>
 		<button id="equals"onclick="EqualsClick()">=</button>
-	
 
 	</div>
 
 	<script>
 
+		//REF to the H1 that hold the text display (DOM element)
 		let resultsDisplay;
+		//float number value of the current RESULT stored from 
+		//previous calculations
 		let runningTotal;
+		//holds a string to mark that an opeation key was clicked and we are waiting for another number to come in before doing a calculation
 		let operation;
-
+		//the STRING value that is being sent into the text
+		//display (will convert to number when an operation
+		//key is pressed)
+		let currentDisplayString;
+		//flag to keep track of whether we already have a decimal
+		//in the number being built in diplay (string)
+		let decimalInPlace;
 
 		//HTML event listener
+		//(runs after HTML is all loaded)
 		document.addEventListener("DOMContentLoaded", function(){
 			resultsDisplay = document.getElementById("resultsDisplay");
 
-			
+			//run clear to initialize all the fields and 
+			//flags
+
+			ClearMemory();
 		});
 
 		function ClearMemory(){
-			console.log('CLEAR clicked');
+			// console.log('CLEAR clicked');
+
+			//ZERO out running total
+			runningTotal = 0;
+			//clear out operation
+			operation = undefined;
+			//mark flag false, no decimal yet
+			decimalInPlace = false;
+			//clear the dispaly string
+			currentDisplayString = '';
+			//put a temporary '0' in the display text
+			//(when numbers are added, this will disappear)
+			resultsDisplay.innerHTML = '0';
+
 		}
 		function DivideClick(){
-			console.log('DIVIDE clicked');
+			// console.log('DIVIDE clicked');
 		}
 		function NumberClick(num){
-			console.log(num + ' clicked');
+			// console.log(num + ' clicked');
+
+			//as numbers are clicked, no calculations
+
+			//we are just building a number in a string
+			//(which is kept up to date in display text)
+
+			//add incoming number to the end of the 
+			//currentDisplayString
+
+			currentDisplayString = currentDisplayString.concat(num.toString());
+			resultsDisplay.innerHTML = currentDisplayString;
 		}
 		function MultiplyClick(){
-			console.log('MULTIPLY clicked');
+			// console.log('MULTIPLY clicked');
 		}
 		function SubtractClick(){
-			console.log('SUBTRACT clicked');
+			// console.log('SUBTRACT clicked');
 		}
 		function AddClick(){
-			console.log('ADD clicked');
+			// console.log('ADD clicked');
 		}
 		function ReverseClick(){
-			console.log('REVERSE clicked');
+			// console.log('REVERSE clicked');
 		}
 		function DecimalClick(){
-			console.log('DECIMAL clicked');
+			// console.log('DECIMAL clicked');
+
+			//only continue processing if we do not already have a decimal
+			//in our number we are building
+			if(!decimalInPlace){
+				//add string decimal point
+				currentDisplayString = currentDisplayString.concat('.');
+				//push new string to display
+				resultsDisplay.innerHTML = currentDisplayString;
+				//mark deciamal flag true (so we can't have duplicate decimals)
+				decimalInPlace = true;
+			}
 		}
 		function EqualsClick(){
-			console.log('EQUALS clicked');
+			// console.log('EQUALS clicked');
 		}
 
 	</script>
