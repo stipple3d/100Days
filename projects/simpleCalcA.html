@@ -6,27 +6,34 @@
 	<link rel="stylesheet" href="../styles/main.css" />
 	<style>
 
-		#calc{
-			background-color: #555;
-			margin: 0px auto;
+		#calcGrid{
+			background-color: #333;
+			margin: 20px auto;
 			width: 400px;
 			height: 500px;
-			/*display: flex;*/
+			background-color: rgba(255,255,255,0.2);
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			grid-template-rows: repeat(6, 1fr);
 		}
-		#calc button{
-			width: 80px;
-			height: 80px;
+		#calcGrid button{
+			margin: 5px;
+			background-color: #999;
 		}
 		#result{
-			width: 90%;
-			height: 80px;
-			background-color: #333;
+			grid-column: 1 / 5;
+    		grid-row: 1 / 2;
+			background-color: #2a2f38;
 			text-align: right;
-			font-size: 50px;
-			margin: auto auto;
+			margin: 5px;
+		}
+		#result h1{
+			margin: 10px;
 		}
 		#clear{
-			width: 260px;
+			/*width: 260px;*/
+			grid-column: 1 / 4;
+    		grid-row: 2 / 3;
 		}
 
 	</style>
@@ -40,35 +47,79 @@
 		<a href='../index.html'>BackToMenu</a>
 	</div>
 
-	<div id="calc">
-		<div id="result">0</div>
-		<button id="clear">C</button>
-		<button id="divide">&divide</button>
+	<div id="calcGrid">
+		<div id="result">
+			<h1 id="resultsDisplay">0</h1>
+		</div>
 
-		<button id="7">7</button>
-		<button id="8">8</button>
-		<button id="9">9</button>
-		<button id="multiply">x</button>
+		<button id="clear"onclick="ClearMemory()">C</button>
+		<button id="divide"onclick="DivideClick()">&divide</button>
 
-		<button id="4">4</button>
-		<button id="5">5</button>
-		<button id="6">9</button>
-		<button id="subtract">-</button>
+		<button id="7"onclick="NumberClick(7)">7</button>
+		<button id="8"onclick="NumberClick(8)">8</button>
+		<button id="9"onclick="NumberClick(9)">9</button>
+		<button id="multiply"onclick="MultiplyClick()">x</button>
 
-		<button id="1">1</button>
-		<button id="2">2</button>
-		<button id="3">3</button>
-		<button id="add">+</button>
+		<button id="4"onclick="NumberClick(4)">4</button>
+		<button id="5"onclick="NumberClick(5)">5</button>
+		<button id="6"onclick="NumberClick(6)">9</button>
+		<button id="subtract"onclick="SubtractClick()">-</button>
 
-		<button id="reverse">+/-</button>
-		<button id="0">0</button>
-		<button id="decimal">.</button>
-		<button id="equals">=</button>
-		
+		<button id="1"onclick="NumberClick(1)">1</button>
+		<button id="2"onclick="NumberClick(2)">2</button>
+		<button id="3"onclick="NumberClick(3)">3</button>
+		<button id="add"onclick="AddClick()">+</button>
+
+		<button id="reverse"onclick="ReverseClick()">+/-</button>
+		<button id="0"onclick="NumberClick(0)">0</button>
+		<button id="decimal"onclick="DecimalClick()">.</button>
+		<button id="equals"onclick="EqualsClick()">=</button>
+	
 
 	</div>
+
 	<script>
-		
+
+		let resultsDisplay;
+		let runningTotal;
+		let operation;
+
+
+		//HTML event listener
+		document.addEventListener("DOMContentLoaded", function(){
+			resultsDisplay = document.getElementById("resultsDisplay");
+
+			
+		});
+
+		function ClearMemory(){
+			console.log('CLEAR clicked');
+		}
+		function DivideClick(){
+			console.log('DIVIDE clicked');
+		}
+		function NumberClick(num){
+			console.log(num + ' clicked');
+		}
+		function MultiplyClick(){
+			console.log('MULTIPLY clicked');
+		}
+		function SubtractClick(){
+			console.log('SUBTRACT clicked');
+		}
+		function AddClick(){
+			console.log('ADD clicked');
+		}
+		function ReverseClick(){
+			console.log('REVERSE clicked');
+		}
+		function DecimalClick(){
+			console.log('DECIMAL clicked');
+		}
+		function EqualsClick(){
+			console.log('EQUALS clicked');
+		}
+
 	</script>
 </body>
 </html>
