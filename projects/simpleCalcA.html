@@ -56,22 +56,22 @@
 		</div>
 
 		<button id="clear"onclick="ClearMemory()">C</button>
-		<button id="divide"onclick="DivideClick()">&divide</button>
+		<button id="divide"onclick="OperationClick('divide')">&divide</button>
 
 		<button id="7"onclick="NumberClick(7)">7</button>
 		<button id="8"onclick="NumberClick(8)">8</button>
 		<button id="9"onclick="NumberClick(9)">9</button>
-		<button id="multiply"onclick="MultiplyClick()">x</button>
+		<button id="multiply"onclick="OperationClick('multiply')">x</button>
 
 		<button id="4"onclick="NumberClick(4)">4</button>
 		<button id="5"onclick="NumberClick(5)">5</button>
 		<button id="6"onclick="NumberClick(6)">6</button>
-		<button id="subtract"onclick="SubtractClick()">-</button>
+		<button id="subtract"onclick="OperationClick('subtract')">-</button>
 
 		<button id="1"onclick="NumberClick(1)">1</button>
 		<button id="2"onclick="NumberClick(2)">2</button>
 		<button id="3"onclick="NumberClick(3)">3</button>
-		<button id="add"onclick="AddClick()">+</button>
+		<button id="add"onclick="OperationClick('add')">+</button>
 
 		<button id="reverse"onclick="ReverseClick()">+/-</button>
 		<button id="0"onclick="NumberClick(0)">0</button>
@@ -97,6 +97,11 @@
 		//in the number being built in diplay (string)
 		let decimalInPlace;
 
+		//flag if we just equaled up and did not have a running operation set
+		//(we are storing the resulting value in runningValue, BUT, if the next key
+		//pressed is a number OR deciaml, we will start as if it was just cleared)
+		let justEqualed;
+
 		//HTML event listener
 		//(runs after HTML is all loaded)
 		document.addEventListener("DOMContentLoaded", function(){
@@ -114,7 +119,7 @@
 			//ZERO out running total
 			runningTotal = 0;
 			//clear out operation
-			operation = undefined;
+			operation = '';
 			//mark flag false, no decimal yet
 			decimalInPlace = false;
 			//clear the dispaly string
@@ -122,11 +127,19 @@
 			//put a temporary '0' in the display text
 			//(when numbers are added, this will disappear)
 			resultsDisplay.innerHTML = '0';
+			//clear just equalled flag
+			justEqualed = false;
 
 		}
 
 		function NumberClick(num){
 			// console.log(num + ' clicked');
+
+			//if just equalled is true, hitting a number clears the previous result
+			if(justEqualed){
+				//clear everything out as if clear was pressed and then handle number click
+				ClearMemory();
+			}
 
 			//as numbers are clicked, no calculations
 
@@ -143,11 +156,23 @@
 		function DecimalClick(){
 			// console.log('DECIMAL clicked');
 
+			//if just equalled is true, hitting a decimal clears the previous result
+			if(justEqualed){
+				//clear everything out as if clear was pressed and then handle number click
+				ClearMemory();
+			}
+
 			//only continue processing if we do not already have a decimal
 			//in our number we are building
 			if(!decimalInPlace){
-				//add string decimal point
-				currentDisplayString = currentDisplayString.concat('.');
+				//if this is the first part of the number clicked, add a zero first
+				if(currentDisplayString == ''){
+					currentDisplayString = '0.'
+				}
+				else{
+					//add string decimal point
+					currentDisplayString = currentDisplayString.concat('.');
+				}
 				//push new string to display
 				resultsDisplay.innerHTML = currentDisplayString;
 				//mark deciamal flag true (so we can't have duplicate decimals)
@@ -155,75 +180,109 @@
 			}
 		}
 
+		function OperationClick(oper){
+			 //console.log('OPERATION clicked: ' + oper);
 
-		function DivideClick(){
-			// console.log('DIVIDE clicked');
-		}
-		
-		function MultiplyClick(){
-			// console.log('MULTIPLY clicked');
-		}
-		function SubtractClick(){
-			// console.log('SUBTRACT clicked');
-		}
-		function AddClick(){
-			// console.log('ADD clicked');
+			 //if there is no number in the display string, return out and
+			 //do not process this operation click
+			 if(currentDisplayString == '')
+			 	return;
 
-			//check if there is already an operation in progress
+			 //if we hit an operator, that overrides a justEqualled true value
+			 if(justEqualed)
+			 	justEqualed = false;
+
+			 //check if there is already an operation in progress
 			//(all the operations can also act as EQUALS too...)
-			if(operation == undefined){
+			if(operation == ''){
 				//simple version, no previous operation pending
 
 				//store the built number (string) as a number in the runningTotal var
 				//(converting the string to a float)
 				runningTotal = parseFloat(currentDisplayString);
 
-				//mark that we are now in addition operation
-				operation = 'add';
+				//store clicked operation
+				operation = oper;
 
 				//mark flag false, no decimal yet
 				decimalInPlace = false;
 
 				//clear the dispaly string
 				currentDisplayString = '';
-				//put a temporary '0' in the display text
+				//temporarily, put the running total in the display text
 				//(when numbers are added, this will disappear)
-				resultsDisplay.innerHTML = '0';
+				resultsDisplay.innerHTML = runningTotal.toString();
 
 			}
 			else{
 				//more complicated. we need to handle the previous operation
 				//before we can move on to the new one
+
+
+				//call EQUALS function and pass in the clicked operation (this will be set as
+				//current after the waiting operation is equaled up)
+				EqualsClick(oper);
+			}
+		}
+
+
+		function ReverseClick(){
+			//console.log('REVERSE clicked');
+
+			if(currentDisplayString[0] == '-'){
+				//console.log('reversing negative');
+				currentDisplayString = currentDisplayString.substring(1);
+				
+			}
+			else{
+				//console.log('reversing positive');
+				currentDisplayString = '-' + currentDisplayString;
 			}
 
-		}
-		function ReverseClick(){
-			// console.log('REVERSE clicked');
+			//push the result to the display
+				resultsDisplay.innerHTML = currentDisplayString;
 		}
 		
-		function EqualsClick(){
+		function EqualsClick(nextOp = ''){
 			// console.log('EQUALS clicked');
 
 			var newNum = parseFloat(currentDisplayString);
 
+			//TODO: make this a switch case
 			if(operation == 'add'){
 				runningTotal += newNum;
 
-				//clear out operation
-				operation = undefined;
-				//mark flag false, no decimal yet
-				decimalInPlace = false;
-				//clear the dispaly string
-				currentDisplayString = runningTotal.toString();
-				//push the result to the display
-				resultsDisplay.innerHTML = currentDisplayString;
-
-				//FIXME: we need some way to display the result, but
-				//		then discard it if the user doesn't enter an operation 
-				//		key next. 
-
-				//	(if the next button pressed is a number, that starts a NEW process)
 			}
+			else if(operation == 'subtract'){
+				runningTotal -= newNum;
+
+			}
+			else if(operation == 'multiply'){
+				runningTotal *= newNum;
+
+			}
+			else if(operation == 'divide'){
+				runningTotal /= newNum;
+
+			}
+			else{
+				console.log('equals ELSE');
+
+				//IF operation is '', equals is not valid, or it just saves the current number in running total?
+			}
+
+			//clear out operation
+			operation = nextOp;
+			//mark flag false, no decimal yet
+			decimalInPlace = false;
+			//clear the dispaly string
+			currentDisplayString = runningTotal.toString();
+			//push the result to the display
+			resultsDisplay.innerHTML = currentDisplayString;
+
+			//mark just equalled as true
+			//(number or decimal will clear out previous result value)
+			justEqualed = true;
 
 		}
 
